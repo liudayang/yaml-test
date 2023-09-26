@@ -1,10 +1,26 @@
-name: Github Actions Demo
+name: More Actions Demo
 on: [push]
 jobs:
-  Check-Github-Actions:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "triggered by a ${{ github.event_name }} event"
+      - uses: actions/checkout@v2
+        with:
+          repository: 'vikingmute/lego-bricks'
+      - name: List files in the repo
+        run: |
+          ls ${{ github.workspace }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: node -v
+      - run: npm i typescript -g
+      - run: tsc -v
+
+
+
+
+
       - run: echo "triggered on a ${{ runner.os }}"
       - name: checkout repo code
         uses: actions/checkout@v2
